@@ -98,7 +98,7 @@ int main()
 			dati_test.bw_ul=0;
 		}
 	eseguitest(connfd,&dati_test); //esegue il test 
-	printf("RISULTATO TEST\nINDIRIZZO IP:%s\tDL:\%f Mb/s\tUL:%f Mb/s\n",dati_test.client_address,dati_test.bw_dl,dati_test.bw_ul);
+	printf("RISULTATO TEST\nINDIRIZZO IP:%s\tDL:%f Mb/s\tUL:%f Mb/s\n",dati_test.client_address,dati_test.bw_dl,dati_test.bw_ul);
 	}
 }
 
