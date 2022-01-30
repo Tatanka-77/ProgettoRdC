@@ -1,5 +1,6 @@
 /*
  * Progetto Reti di Calcolatori
+ * client.c
  * 
  * Copyright 2022 Sergio Raneli<sergio.raneli@community.unipa.it>
  * 
@@ -28,7 +29,8 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
-#include <string.h>
+#include <string.h>	
+#include <unistd.h>
  
 #define MAX_MESSAGGIO 10 //Dimensione massima dei messaggi
 #define DATA_SIZE   ( (  100 * 1024 * 1024) ) //dimensione del trasferimento 100 Mb
@@ -40,7 +42,7 @@ typedef struct misurazione {
     int bufsize; //dimensione del buffer di lettura
     char* server_address; //indirizzo del server
     int server_port; //porta del server
-};
+}misurazione;
  
 void misura_connessione(struct misurazione *misura);
 int connetti(struct misurazione *misura);
@@ -143,4 +145,3 @@ int connetti(struct misurazione *misura) {
  
     return sock; //restituisce il descrittore del socket
 }
-
