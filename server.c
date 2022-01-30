@@ -31,7 +31,8 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <arpa/inet.h>
-#include <mariadb/mysql.h>
+#include <mariadb/mysql.h>	
+#include <unistd.h>
 
 #define MAX 10 //Dimensione massima dei messaggi
 #define DATA_SIZE   ( (100 * 1024 * 1024) ) //dimensione del trasferimento 100 Mb
@@ -42,7 +43,7 @@ typedef struct risultato { //struttura per memorizzare il risultato del test
     double bw_dl; // bandwidth DL in Mb/s
     double bw_ul; // bandwidth UL in Mb/s
     char* client_address; //indirizzo del server
-};
+}risultato;
 
 void eseguitest(int connfd, struct risultato* dati_test);
 void memorizzarisultato(struct risultato* dati_test);
@@ -185,6 +186,3 @@ void memorizzarisultato(struct risultato* dati_test) {
 		mysql_close(conn);
 		}
 }
-	
-	
-
