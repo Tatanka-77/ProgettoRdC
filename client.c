@@ -30,8 +30,8 @@
 #include <arpa/inet.h>
 #include <string.h>
  
-#define MAX_MESSAGGIO 10
-#define DATA_SIZE   ( (  100 * 1024 * 1024) )
+#define MAX_MESSAGGIO 10 //Dimensione massima dei messaggi
+#define DATA_SIZE   ( (  100 * 1024 * 1024) ) //dimensione del trasferimento 100 Mb
  
 typedef struct misurazione {
     double bw_dl; // bandwidth DL in Mb/s
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 {
     struct misurazione st_misurazione;
     if (argc < 3) {
-		puts("uso client <ip server> <porta server>");
+		puts("utilizzare client <ip server> <porta server>");
 		exit(1);
 	}
     st_misurazione.server_address=argv[1];
@@ -67,7 +67,7 @@ void misura_connessione(struct misurazione *misura) {
     misura->bytes=0;
     misura->bufsize = 512*1024; //512KB
     //misura->server_address = "192.168.1.104";
-    misura->server_port = 8081;
+    //misura->server_port = 8081;
     struct timeval start, end;
     int sock;
     
@@ -114,7 +114,7 @@ void misura_connessione(struct misurazione *misura) {
 	strcpy(messaggio, "EXIT");
 	write(sock,messaggio,sizeof(messaggio)); //esce dal test
     close(sock);
-    printf("Bandwidth: DL->%f Mb/s UL->%f Mb/s\n",misura->bw_dl, misura->bw_ul);
+    printf("Bandwidth: DL->%f Mb/s UL->%f Mb/s\n",misura->bw_dl, misura->bw_ul); //stampa a video il risultato del test
     
 }
  
@@ -123,11 +123,10 @@ int connetti(struct misurazione *misura) {
     int sock;
     if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        perror("Errore : Creazione del socket fallita\n");
+        perror("Creazione del socket fallita");
         exit(1);
     }
-    // create address
-    struct sockaddr_in serveraddress;
+    struct sockaddr_in serveraddress; // inizializza la struttura con i dati per la connessione
     bzero(&serveraddress, sizeof(serveraddress));
    
     // assegna ip e porta al socket nel formato corretto
@@ -138,9 +137,10 @@ int connetti(struct misurazione *misura) {
     // esegue la connessione al server
     if(connect(sock, (struct sockaddr *) &serveraddress, sizeof(serveraddress)) < 0)
     {
-        perror("Errore: Impossibile collegarsi al server\n");
+        perror("Impossibile collegarsi al server");
         exit(1);
     }
  
-    return sock;
+    return sock; //restituisce il descrittore del socket
 }
+
